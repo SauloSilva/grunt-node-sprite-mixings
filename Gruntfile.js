@@ -29,15 +29,13 @@ module.exports = function(grunt) {
             mixing: {
                 jsonFile: ['test/fixtures/mixing/*.json'],
                 dest: 'test/expected',
-                name: 'global',
-                autoRemove: false
+                name: 'global'
             },
-
             mixings: {
                 jsonFile: ['test/fixtures/mixings/*.json'],
-                dest: 'test/expected',
-                autoRemove: false
-            }
+                dest: 'test/expected'
+            },
+
         },
 
         nodeunit: {

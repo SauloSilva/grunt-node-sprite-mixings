@@ -12,13 +12,12 @@ var chalk = require('chalk');
 module.exports = function(grunt) {
 
     var parserMixing = function(options) {
-        var files = grunt.file.expand(options.jsonFile),
-            code = '';
-
-        if (!files) {
-            grunt.log.warn('Source file ' + chalk.cyan(files) + ' not found.');
+        if (!optionsValidate(options, 'mixing')) {
             return
         }
+
+        var files = grunt.file.expand(options.jsonFile),
+            code = '';
 
         files.forEach(function(file) {
             var data = grunt.file.readJSON(file);
@@ -29,25 +28,22 @@ module.exports = function(grunt) {
         })
 
         var mixingPath = options.dest + '/' + options.name + '.styl'
-        grunt.file.write(mixingPath, code)
+        stylMixingGenerator(mixingPath, code)
     }
 
     var parserMixings = function(options) {
-        var files = grunt.file.expand(options.jsonFile)
-
-        if (!files) {
-            grunt.log.warn('Source file ' + chalk.cyan(files) + ' not found.');
+        if (!optionsValidate(options, 'mixings')) {
             return
         }
 
+        var files = grunt.file.expand(options.jsonFile)
         files.forEach(function(file) {
             var code = '',
                 data = grunt.file.readJSON(file);
 
             code = codeGenerator(data)
-
             var mixingPath = options.dest + '/' + fileNameParse(file) + '.styl'
-            grunt.file.write(mixingPath, code)
+            stylMixingGenerator(mixingPath, code)
 
             if (options.autoRemove) {
                 removeJson(file)
@@ -63,15 +59,39 @@ module.exports = function(grunt) {
             .shift()
     }
 
+    var optionsValidate = function(options, type) {
+        switch (false) {
+            case typeof(options.jsonFile) === 'object':
+                grunt.log.warn('jsonFile not found.');
+                return false
+                break;
+            case options.dest !== '':
+                grunt.log.warn('dest not found.');
+                return false
+                break;
+            case !(options.name === '' && type === 'mixing'):
+                grunt.log.warn('name not found.');
+                return false
+                break;
+            default:
+                return true
+        }
+    }
+
     var removeJson = function(file) {
         grunt.file.delete(file)
+        grunt.log.ok(file + ' has been successfully deleted.')
+    }
+
+    var stylMixingGenerator = function(path, code) {
+        grunt.file.write(path, code)
+        grunt.log.ok(path + ' has been created successfully.')
     }
 
     var codeGenerator = function(data) {
         var images = data.images,
             shortName = data.shortsum,
             name = data.name,
-            namespace = 'png',
             content = '';
 
         images.forEach(function(element, i) {
@@ -82,11 +102,15 @@ module.exports = function(grunt) {
     }
 
     grunt.registerMultiTask('node_sprite_mixings', 'Generator mixings for stylus. Based on lib node-sprites', function() {
-
-        if (this.target == 'mixing') {
-            parserMixing(this.data)
-        } else {
-            parserMixings(this.data)
+        switch (false) {
+            case this.target !== 'mixing':
+                parserMixing(this.data)
+                break;
+            case this.target !== 'mixings':
+                parserMixings(this.data)
+                break;
+            default:
+                grunt.log.warn('Target mixing or mixings not found.');
         }
     });
 };

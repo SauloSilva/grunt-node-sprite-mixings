@@ -62,7 +62,7 @@ Deletes the json file after generate the mixings
 #### mixing.name
 
 name: `String`
-Specifies the name of the mixing which shall be generated. For a group of mixings this option is not a valid because the name is inherited from the name of the sprite. For this reason he is only necessary to inside the **mixing** property.
+By `default` is  `false`, specifies the name of the mixing which shall be generated. For a group of mixings this option is not a valid because the name is inherited from the name of the sprite. For this reason he is only necessary to inside the **mixing** property.
 
 ### Usage Examples
 

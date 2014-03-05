@@ -43,4 +43,7 @@ exports.node_sprite_mixings = {
 
         test.done();
     },
+    fails: function(test) {
+        test.done();
+    }
 };
