@@ -153,6 +153,7 @@ Feel free to post issues or pull request.
 You can run the projects tests with the `npm test` command.
 
 ## Release History
+* 2013-03-05    **v0.1.3**    Improvements auto remove json
 * 2013-03-05    **v0.1.2**    First released
 
 Task submitted by [Saulo S. Santiago](http://www.linkedin.com/profile/view?id=119242632&trk=nav_responsive_tab_profile)
