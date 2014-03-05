@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/naltatis/node-sprite.png)](http://travis-ci.org/naltatis/node-sprite)
+[![Build Status](https://travis-ci.org/SauloSilva/grunt-node-sprite-mixings.png?branch=master)](http://travis-ci.org/SauloSilva/grunt-node-sprite-mixings)
 
 # grunt-node-sprite-mixings
 
