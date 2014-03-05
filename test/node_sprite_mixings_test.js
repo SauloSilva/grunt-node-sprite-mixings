@@ -3,31 +3,11 @@
 var grunt = require('grunt'),
     _ = require('underscore');
 
-
-/*
-  ======== A Handy Little Nodeunit Reference ========
-  https://github.com/caolan/nodeunit
-
-  Test methods:
-    test.expect(numAssertions)
-    test.done()
-  Test assertions:
-    test.ok(value, [message])
-    test.equal(actual, expected, [message])
-    test.notEqual(actual, expected, [message])
-    test.deepEqual(actual, expected, [message])
-    test.notDeepEqual(actual, expected, [message])
-    test.strictEqual(actual, expected, [message])
-    test.notStrictEqual(actual, expected, [message])
-    test.throws(block, [error], [message])
-    test.doesNotThrow(block, [error], [message])
-    test.ifError(value)
-*/
-
 exports.node_sprite_mixings = {
     setUp: function(done) {
         done();
     },
+
     mixing: function(test) {
         test.expect(9);
         var pathStyl = './test/expected/global.styl',
@@ -44,6 +24,27 @@ exports.node_sprite_mixings = {
         test.notEqual(globalStyl.indexOf('y-offset'), -1, 'Should contain the y-offset of mixing');
         test.notEqual(globalStyl.indexOf('x-offset'), -1, 'Should contain the y-offset of mixing');
         test.notEqual(globalStyl.indexOf('transparent'), -1, 'Should contain the transparent of mixing');
+        test.done();
+    },
+
+    mixings: function(test) {
+        test.expect(16);
+        var jsonPaths = ['./test/fixtures/mixings/foo.json', './test/fixtures/mixings/bar.json'],
+            stylPaths = ['./test/expected/foo.styl', './test/expected/bar.styl'],
+            filesJsons = [grunt.file.readJSON(_.first(jsonPaths)), grunt.file.readJSON(_.last(jsonPaths))],
+            filesStyl = [grunt.file.read(_.first(stylPaths)), grunt.file.read(_.last(stylPaths))];
+
+        filesStyl.forEach(function(element, i) {
+            test.equal(grunt.file.exists(jsonPaths[i]), true, 'Should file exist')
+            test.notEqual(element.indexOf(filesJsons[i].name), -1, 'Should contain the name of mixing, the same json of the file');
+            test.notEqual(element.indexOf('background'), -1, 'Should contain the background of mixing');
+            test.notEqual(element.indexOf("url('" + filesJsons[i].name + '-' + filesJsons[i].shortsum + ".png')"), -1, 'Should contain the url of mixing');
+            test.notEqual(element.indexOf('repeat'), -1, 'Should contain the repeat of mixing');
+            test.notEqual(element.indexOf('y-offset'), -1, 'Should contain the y-offset of mixing');
+            test.notEqual(element.indexOf('x-offset'), -1, 'Should contain the y-offset of mixing');
+            test.notEqual(element.indexOf('transparent'), -1, 'Should contain the transparent of mixing');
+        })
+
         test.done();
     },
 };
