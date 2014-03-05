@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/naltatis/node-sprite.png)](http://travis-ci.org/naltatis/node-sprite)
+
 # grunt-node-sprite-mixings
 
 > Generator mixings for stylus. Based on lib node-sprites
