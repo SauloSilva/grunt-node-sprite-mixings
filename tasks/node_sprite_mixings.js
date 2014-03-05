@@ -47,7 +47,6 @@ module.exports = function(grunt) {
             code = codeGenerator(data)
 
             var mixingPath = options.dest + '/' + fileNameParse(file) + '.styl'
-            console.log(mixingPath)
             grunt.file.write(mixingPath, code)
 
             if (options.autoRemove) {
@@ -71,11 +70,12 @@ module.exports = function(grunt) {
     var codeGenerator = function(data) {
         var images = data.images,
             shortName = data.shortsum,
+            name = data.name,
             namespace = 'png',
             content = '';
 
         images.forEach(function(element, i) {
-            content += element.name.replace('_', '-') + "(repeat='no-repeat', x-offset=0, y-offset=0)\n  background url('png-" + shortName + ".png') repeat (" + element.positionX + " + x-offset) (" + element.positionY + " + y-offset) transparent\n"
+            content += element.name.replace('_', '-') + "(repeat='no-repeat', x-offset=0, y-offset=0)\n  background url('" + name + "-" + shortName + ".png') repeat (" + element.positionX + " + x-offset) (" + element.positionY + " + y-offset) transparent\n"
         })
 
         return content

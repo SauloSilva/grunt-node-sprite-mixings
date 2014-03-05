@@ -1,6 +1,8 @@
 'use strict';
 
-var grunt = require('grunt');
+var grunt = require('grunt'),
+    _ = require('underscore');
+
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -23,26 +25,25 @@ var grunt = require('grunt');
 */
 
 exports.node_sprite_mixings = {
-  setUp: function(done) {
-    // setup here if necessary
-    done();
-  },
-  default_options: function(test) {
-    test.expect(1);
+    setUp: function(done) {
+        done();
+    },
+    mixing: function(test) {
+        test.expect(9);
+        var pathStyl = './test/expected/global.styl',
+            pathJson = './test/fixtures/mixing/example.json',
+            globalJson = grunt.file.readJSON(pathJson),
+            globalStyl = grunt.file.read(pathStyl);
 
-    var actual = grunt.file.read('tmp/default_options');
-    var expected = grunt.file.read('test/expected/default_options');
-    test.equal(actual, expected, 'should describe what the default behavior is.');
-
-    test.done();
-  },
-  custom_options: function(test) {
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/custom_options');
-    var expected = grunt.file.read('test/expected/custom_options');
-    test.equal(actual, expected, 'should describe what the custom option(s) behavior is.');
-
-    test.done();
-  },
+        test.equal(grunt.file.exists(pathStyl), true, 'Should file exist')
+        test.notEqual(globalStyl.indexOf(_.first(globalJson.images).name), -1, 'Should contain the name of mixing, the same json of the file');
+        test.notEqual(globalStyl.indexOf(_.last(globalJson.images).name), -1, 'Should contain the name of mixing, the same json of the file');
+        test.notEqual(globalStyl.indexOf('background'), -1, 'Should contain the background of mixing');
+        test.notEqual(globalStyl.indexOf("url('" + globalJson.name + '-' + globalJson.shortsum + ".png')"), -1, 'Should contain the url of mixing');
+        test.notEqual(globalStyl.indexOf('repeat'), -1, 'Should contain the repeat of mixing');
+        test.notEqual(globalStyl.indexOf('y-offset'), -1, 'Should contain the y-offset of mixing');
+        test.notEqual(globalStyl.indexOf('x-offset'), -1, 'Should contain the y-offset of mixing');
+        test.notEqual(globalStyl.indexOf('transparent'), -1, 'Should contain the transparent of mixing');
+        test.done();
+    },
 };

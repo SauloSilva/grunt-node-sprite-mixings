@@ -1,0 +1,10 @@
+{
+    "name": "foo",
+    "shortsum": "1",
+
+    "images": [{
+        "name": "foo",
+        "positionX": 0,
+        "positionY": 0
+    }]
+}

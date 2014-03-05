@@ -1,0 +1,9 @@
+{
+    "name": "bar",
+    "shortsum": "1",
+    "images": [{
+        "name": "bar",
+        "positionX": 0,
+        "positionY": 442
+    }]
+}
