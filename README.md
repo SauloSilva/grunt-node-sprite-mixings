@@ -46,23 +46,23 @@ Before run the grunt-node-sprite-mixings task you must make sure that the sprite
 
 #### mixing.jsonFile or mixings.jsonFile
 
-jsonFile: `Array`
+jsonFile: `Array` -
 Specifies the path to the json file
 
 #### mixing.dest or mixings.dest
 
-dest: `String`
+dest: `String` -
 Specifies the path where the mixing must be generated
 
 #### mixing.autoRemove or mixings.autoRemove
 
-autoRemove: `Boolean`
-Deletes the json file after generate the mixings
+autoRemove: `Boolean` -
+By `default` is  `false`, deletes the json file after generate the mixings
 
 #### mixing.name
 
-name: `String`
-By `default` is  `false`, specifies the name of the mixing which shall be generated. For a group of mixings this option is not a valid because the name is inherited from the name of the sprite. For this reason he is only necessary to inside the **mixing** property.
+name: `String` -
+Specifies the name of the mixing which shall be generated. For a group of mixings this option is not a valid because the name is inherited from the name of the sprite. For this reason he is only necessary to inside the **mixing** property.
 
 ### Usage Examples
 
