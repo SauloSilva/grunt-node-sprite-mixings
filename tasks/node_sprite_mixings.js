@@ -22,13 +22,11 @@ module.exports = function(grunt) {
         files.forEach(function(file) {
             var data = grunt.file.readJSON(file);
             code += codeGenerator(data)
-            if (options.autoRemove) {
-                removeJson(file)
-            }
         })
 
         var mixingPath = options.dest + '/' + options.name + '.styl'
         stylMixingGenerator(mixingPath, code)
+        removeJsons(files, options.autoRemove)
     }
 
     var parserMixings = function(options) {
@@ -44,12 +42,9 @@ module.exports = function(grunt) {
             code = codeGenerator(data)
             var mixingPath = options.dest + '/' + fileNameParse(file) + '.styl'
             stylMixingGenerator(mixingPath, code)
-
-            if (options.autoRemove) {
-                removeJson(file)
-            }
         })
 
+        removeJsons(files, options.autoRemove)
     }
 
     var fileNameParse = function(file) {
@@ -78,9 +73,15 @@ module.exports = function(grunt) {
         }
     }
 
-    var removeJson = function(file) {
-        grunt.file.delete(file)
-        grunt.log.ok(file + ' has been successfully deleted.')
+    var removeJsons = function(files, hasRemove) {
+        if (!hasRemove) {
+            return
+        }
+
+        files.forEach(function(file) {
+            grunt.file.delete(file)
+            grunt.log.ok(file + ' has been successfully deleted.')
+        })
     }
 
     var stylMixingGenerator = function(path, code) {
