@@ -4,10 +4,6 @@ var grunt = require('grunt'),
     _ = require('underscore');
 
 exports.node_sprite_mixings = {
-    setUp: function(done) {
-        done();
-    },
-
     mixing: function(test) {
         test.expect(9);
         var pathStyl = './test/expected/global.styl',
