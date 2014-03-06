@@ -1,7 +1,8 @@
 'use strict';
 
 var grunt = require('grunt'),
-    _ = grunt.util._;
+    _ = grunt.util._,
+    urlNamespace = '/example/';
 
 exports.node_sprite_mixings = {
     global: function(test) {
@@ -18,7 +19,7 @@ exports.node_sprite_mixings = {
             test.notEqual(globalStyl.indexOf(_.first(jsonParsed.images).name), -1, 'Should contain the name of mixing, the same json of the file');
             test.notEqual(globalStyl.indexOf(_.last(jsonParsed.images).name), -1, 'Should contain the name of mixing, the same json of the file');
             test.notEqual(globalStyl.indexOf('background'), -1, 'Should contain the background of mixing');
-            test.notEqual(globalStyl.indexOf("url('" + jsonParsed.name + '-' + jsonParsed.shortsum + ".png')"), -1, 'Should contain the url of mixing');
+            test.notEqual(globalStyl.indexOf("url('" + urlNamespace + jsonParsed.name + '-' + jsonParsed.shortsum + ".png')"), -1, 'Should contain the url of mixing');
         })
 
         test.notEqual(globalStyl.indexOf('repeat'), -1, 'Should contain the repeat of mixing');
@@ -41,7 +42,7 @@ exports.node_sprite_mixings = {
             test.notEqual(styl.indexOf(_.first(jsonParsed.images).name), -1, 'Should contain the name of mixing, the same json of the file');
             test.notEqual(styl.indexOf(_.last(jsonParsed.images).name), -1, 'Should contain the name of mixing, the same json of the file');
             test.notEqual(styl.indexOf('background'), -1, 'Should contain the background of mixing');
-            test.notEqual(styl.indexOf("url('" + jsonParsed.name + '-' + jsonParsed.shortsum + ".png')"), -1, 'Should contain the url of mixing');
+            test.notEqual(styl.indexOf("url('" + urlNamespace + jsonParsed.name + '-' + jsonParsed.shortsum + ".png')"), -1, 'Should contain the url of mixing');
 
             test.equal(grunt.file.exists(pathStyl + file + '.styl'), true, 'Should file exist')
             test.notEqual(styl.indexOf('repeat'), -1, 'Should contain the repeat of mixing');

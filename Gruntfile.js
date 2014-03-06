@@ -30,12 +30,18 @@ module.exports = function(grunt) {
                 files: {
                     'test/expected/bar.styl': ['test/fixtures/bar.json'],
                     'test/expected/foo.styl': ['test/fixtures/foo.json']
+                },
+                options: {
+                    urlNamespace: '/example/'
                 }
             },
 
             files: {
                 dest: 'test/expected/global.styl',
                 src: ['test/fixtures/*.json']
+            },
+            options: {
+                urlNamespace: '/example/'
             }
         },
 

@@ -12,7 +12,8 @@ var chalk = require('chalk');
 module.exports = function(grunt) {
     var src = [],
         dest = [],
-        removeJson = false,
+        jsonRemove = false,
+        urlNamespace = '',
         codes = '',
         _ = grunt.util._;
 
@@ -29,8 +30,8 @@ module.exports = function(grunt) {
             codes = ''
         })
 
-        if (removeJson) {
-            remove()
+        if (jsonRemove) {
+            fileJsonRemove()
         }
     }
 
@@ -57,7 +58,7 @@ module.exports = function(grunt) {
         }
     }
 
-    var remove = function() {
+    var fileJsonRemove = function() {
         var paths = _.flatten(src)
         paths.forEach(function(path) {
             var deleted = grunt.file.delete(path)
@@ -71,10 +72,11 @@ module.exports = function(grunt) {
         var data = grunt.file.readJSON(file),
             images = data.images,
             shortName = data.shortsum,
-            name = data.name;
+            name = data.name,
+            url = urlNamespace + name + "-" + shortName + '.png';
 
         images.forEach(function(element, i) {
-            codes += element.name.replace('_', '-') + "(repeat='no-repeat', x-offset=0, y-offset=0)\n  background url('" + name + "-" + shortName + ".png') repeat (" + element.positionX + " + x-offset) (" + element.positionY + " + y-offset) transparent\n"
+            codes += element.name.replace('_', '-') + "(x-offset=0, y-offset=0, repeat=no-repeat)\n  background url('" + url + "') repeat (" + element.positionX + "px + x-offset) (" + -element.positionY + "px + y-offset) transparent\n"
         })
     }
 
@@ -82,7 +84,10 @@ module.exports = function(grunt) {
         this.files.forEach(function(file) {
             dest.push(file.dest)
             src.push(file.src)
-            removeJson = this.options().removeJson
+            jsonRemove = this.options().jsonRemove
+            if (this.options().urlNamespace) {
+                urlNamespace = this.options().urlNamespace
+            }
         }.bind(this))
         parserMixings()
     });
