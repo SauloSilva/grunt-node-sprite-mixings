@@ -26,17 +26,19 @@ module.exports = function(grunt) {
         },
 
         node_sprite_mixings: {
-            mixing: {
-                jsonFile: ['test/fixtures/mixing/*.json'],
-                dest: 'test/expected',
-                name: 'global'
-            },
-            mixings: {
-                jsonFile: ['test/fixtures/mixings/*.json'],
-                dest: 'test/expected'
+            basicAndExtras: {
+                files: {
+                    'test/expected/bar.styl': ['test/fixtures/bar.json'],
+                    'test/expected/foo.styl': ['test/fixtures/foo.json']
+                }
             },
 
+            files: {
+                dest: 'test/expected/global.styl',
+                src: ['test/fixtures/*.json']
+            }
         },
+
 
         nodeunit: {
             tests: ['test/*_test.js'],

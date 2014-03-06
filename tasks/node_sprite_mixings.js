@@ -10,62 +10,38 @@
 var chalk = require('chalk');
 
 module.exports = function(grunt) {
+    var src = [],
+        dest = [],
+        removeJson = false,
+        codes = '',
+        _ = grunt.util._;
 
-    var parserMixing = function(options) {
-        if (!optionsValidate(options, 'mixing')) {
+    var parserMixings = function() {
+        if (!validate()) {
             return
         }
 
-        var files = grunt.file.expand(options.jsonFile),
-            code = '';
-
-        files.forEach(function(file) {
-            var data = grunt.file.readJSON(file);
-            code += codeGenerator(data)
+        dest.forEach(function(path, i) {
+            src[i].forEach(function(file) {
+                codeGenerator(file)
+            })
+            mixingCreate(path)
+            codes = ''
         })
 
-        var mixingPath = options.dest + '/' + options.name + '.styl'
-        stylMixingGenerator(mixingPath, code)
-        removeJsons(files, options.autoRemove)
-    }
-
-    var parserMixings = function(options) {
-        if (!optionsValidate(options, 'mixings')) {
-            return
+        if (removeJson) {
+            remove()
         }
-
-        var files = grunt.file.expand(options.jsonFile)
-        files.forEach(function(file) {
-            var code = '',
-                data = grunt.file.readJSON(file);
-
-            code = codeGenerator(data)
-            var mixingPath = options.dest + '/' + fileNameParse(file) + '.styl'
-            stylMixingGenerator(mixingPath, code)
-        })
-
-        removeJsons(files, options.autoRemove)
     }
 
-    var fileNameParse = function(file) {
-        return file.split('/')
-            .pop()
-            .split('.')
-            .shift()
-    }
-
-    var optionsValidate = function(options, type) {
+    var validate = function() {
         switch (false) {
-            case typeof(options.jsonFile) === 'object':
-                grunt.log.warn('jsonFile not found.');
+            case !_.isEmpty(src):
+                grunt.log.warn('src not found!')
                 return false
                 break;
-            case options.dest !== '':
-                grunt.log.warn('dest not found.');
-                return false
-                break;
-            case !(options.name === '' && type === 'mixing'):
-                grunt.log.warn('name not found.');
+            case !_.isEmpty(dest):
+                grunt.log.warn('dest not found!')
                 return false
                 break;
             default:
@@ -73,45 +49,41 @@ module.exports = function(grunt) {
         }
     }
 
-    var removeJsons = function(files, hasRemove) {
-        if (!hasRemove) {
-            return
-        }
+    var mixingCreate = function(path) {
+        var created = grunt.file.write(path, codes)
 
-        files.forEach(function(file) {
-            grunt.file.delete(file)
-            grunt.log.ok(file + ' has been successfully deleted.')
+        if (created) {
+            grunt.log.writeln(chalk.cyan(path) + ' has been created successfully.')
+        }
+    }
+
+    var remove = function() {
+        var paths = _.flatten(src)
+        paths.forEach(function(path) {
+            var deleted = grunt.file.delete(path)
+            if (deleted) {
+                grunt.log.writeln(chalk.cyan(path) + ' has been successfully deleted.')
+            }
         })
     }
 
-    var stylMixingGenerator = function(path, code) {
-        grunt.file.write(path, code)
-        grunt.log.ok(path + ' has been created successfully.')
-    }
-
-    var codeGenerator = function(data) {
-        var images = data.images,
+    var codeGenerator = function(file) {
+        var data = grunt.file.readJSON(file),
+            images = data.images,
             shortName = data.shortsum,
-            name = data.name,
-            content = '';
+            name = data.name;
 
         images.forEach(function(element, i) {
-            content += element.name.replace('_', '-') + "(repeat='no-repeat', x-offset=0, y-offset=0)\n  background url('" + name + "-" + shortName + ".png') repeat (" + element.positionX + " + x-offset) (" + element.positionY + " + y-offset) transparent\n"
+            codes += element.name.replace('_', '-') + "(repeat='no-repeat', x-offset=0, y-offset=0)\n  background url('" + name + "-" + shortName + ".png') repeat (" + element.positionX + " + x-offset) (" + element.positionY + " + y-offset) transparent\n"
         })
-
-        return content
     }
 
     grunt.registerMultiTask('node_sprite_mixings', 'Generator mixings for stylus. Based on lib node-sprites', function() {
-        switch (false) {
-            case this.target !== 'mixing':
-                parserMixing(this.data)
-                break;
-            case this.target !== 'mixings':
-                parserMixings(this.data)
-                break;
-            default:
-                grunt.log.warn('Target mixing or mixings not found.');
-        }
+        this.files.forEach(function(file) {
+            dest.push(file.dest)
+            src.push(file.src)
+            removeJson = this.data.removeJson
+        }.bind(this))
+        parserMixings()
     });
 };
