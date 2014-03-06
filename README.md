@@ -52,7 +52,7 @@ By `default` is  `false`, should you wish to delete the jsons after generation o
 
 #### One file per sprites
 
-Coming together of all json sprites into a single mixing
+Coming together of all json sprites into a single mixing.
 
 ```js
 grunt.initConfig({
@@ -112,6 +112,7 @@ Result of css:
 ## Structural Sprite Information required / JSON
 
 The json that was specified in jsonFile, should be in this structure.
+
 To learn how to produce this automatic json lib check out the [node-sprite](https://github.com/naltatis/node-sprite#usage), and see how to utilize.
 
 ```json
