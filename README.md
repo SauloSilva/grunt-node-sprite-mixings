@@ -143,6 +143,7 @@ Feel free to post issues or pull request.
 You can run the projects tests with the `npm test` command.
 
 ## Release History
+* 2013-03-05    **v0.1.4**    Fix bug remove Json
 * 2013-03-05    **v0.1.3**    Improvements remove json and code refactors
 * 2013-03-05    **v0.1.2**    First released
 
