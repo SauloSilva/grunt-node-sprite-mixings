@@ -82,7 +82,7 @@ module.exports = function(grunt) {
         this.files.forEach(function(file) {
             dest.push(file.dest)
             src.push(file.src)
-            removeJson = this.data.removeJson
+            removeJson = this.options().removeJson
         }.bind(this))
         parserMixings()
     });

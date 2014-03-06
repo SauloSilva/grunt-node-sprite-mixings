@@ -60,6 +60,9 @@ grunt.initConfig({
     files: {
         dest: 'public/stylesheets/mixings/example.styl',
         src: ['public/images/*.json']
+    },
+    options: {
+        removeJson: true // default is false
     }
   },
 });
@@ -76,6 +79,9 @@ grunt.initConfig({
         files: {
             'public/stylesheets/mixings/bar.styl': ['public/images/bar.json'],
             'public/stylesheets/mixings/foo.styl': ['public/images/foo.json']
+        },
+        options: {
+            removeJson: true // default is false
         }
     },
   },
