@@ -3,10 +3,14 @@
     "shortsum": "1",
     "images": [{
         "name": "foo",
+        "width": 20,
+        "height": 20,
         "positionX": 0,
         "positionY": 0
     }, {
         "name": "bar",
+        "width": 20,
+        "height": 20,
         "positionX": 0,
         "positionY": 442
     }]
