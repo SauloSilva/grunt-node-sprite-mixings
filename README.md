@@ -117,10 +117,13 @@ To use the mixings generated, just call into your file.styl as follows:
   foo()
 
 .example_2
-  foo(2px, 2px)
+  foo(true, 2px, 2px)
 
 .example_3
-  foo(0, 0, repeat-x)
+  foo(true, 0, 0, repeat-x)
+
+.example_4
+  foo(false)
 ```
 Result of css:
 
@@ -141,6 +144,10 @@ Result of css:
   background:url("urlNamespace/example-1.png") repeat-x 0 211px transparent;
   width: 20px;
   height: 20px
+}
+
+.example_4 {
+  background:url("urlNamespace/example-1.png") repeat-x 0 211px transparent
 }
 ```
 
@@ -176,10 +183,11 @@ Feel free to post issues or pull request.
 You can run the projects tests with the `npm test` command.
 
 ## Release History
+* 2013-03-05    **v0.1.7**    Features - optional parameter of sizes on mixings
 * 2013-03-05    **v0.1.6**    Improvements - add width and height of mixings
 * 2013-03-05    **v0.1.5**    Fix bug syntax background and insert namespace in the url
 * 2013-03-05    **v0.1.4(deprecated)**    Fix bug remove Json
 * 2013-03-05    **v0.1.3(deprecated)**    Improvements remove json and code refactors
 * 2013-03-05    **v0.1.2(deprecated)**    First released
 
-Task submitted by [Saulo S. Santiago](http://www.linkedin.com/profile/view?id=119242632&trk=nav_responsive_tab_profile)
+Task submitted by [Saulo S. Santiago](http://www.linkedin.com/profile/view?id=119242632)
