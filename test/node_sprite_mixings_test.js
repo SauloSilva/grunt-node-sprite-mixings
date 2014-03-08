@@ -6,7 +6,7 @@ var grunt = require('grunt'),
 
 exports.node_sprite_mixings = {
     global: function(test) {
-        test.expect(33);
+        test.expect(35);
         var pathStyl = './test/expected/global.styl',
             pathJson = './test/fixtures/',
             jsons = ['bar.json', 'foo.json', 'example.json'],
@@ -31,13 +31,15 @@ exports.node_sprite_mixings = {
         test.notEqual(globalStyl.indexOf('height'), -1, 'Should contain the width of mixing');
         test.notEqual(globalStyl.indexOf('y-offset'), -1, 'Should contain the y-offset of mixing');
         test.notEqual(globalStyl.indexOf('x-offset'), -1, 'Should contain the y-offset of mixing');
+        test.notEqual(globalStyl.indexOf('sizes=true'), -1, 'Should contain the sizes=true of mixing');
+        test.notEqual(globalStyl.indexOf('if'), -1, 'Should contain the `if` of mixing');
         test.notEqual(globalStyl.indexOf('repeat'), -1, 'Should contain the repeat of mixing');
         test.notEqual(globalStyl.indexOf('transparent'), -1, 'Should contain the transparent of mixing');
         test.done();
     },
 
     basicAndExtra: function(test) {
-        test.expect(28);
+        test.expect(32);
         var pathStyl = './test/expected/',
             pathJson = './test/fixtures/',
             files = ['foo', 'bar'];
@@ -62,6 +64,8 @@ exports.node_sprite_mixings = {
             test.notEqual(styl.indexOf('repeat'), -1, 'Should contain the repeat of mixing');
             test.notEqual(styl.indexOf('y-offset'), -1, 'Should contain the y-offset of mixing');
             test.notEqual(styl.indexOf('x-offset'), -1, 'Should contain the y-offset of mixing');
+            test.notEqual(styl.indexOf('if'), -1, 'Should contain the `if` of mixing');
+            test.notEqual(styl.indexOf('sizes=true'), -1, 'Should contain the sizes=true of mixing');
             test.notEqual(styl.indexOf('transparent'), -1, 'Should contain the transparent of mixing');
         })
         test.done();

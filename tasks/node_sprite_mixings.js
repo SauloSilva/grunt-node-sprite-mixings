@@ -76,10 +76,11 @@ module.exports = function(grunt) {
             url = urlNamespace + name + "-" + shortName + '.png';
 
         images.forEach(function(element, i) {
-            codes += element.name.replace('_', '-') + "(x-offset=0, y-offset=0, repeat=no-repeat)\n"
+            codes += element.name.replace('_', '-') + "(sizes=true, x-offset=0, y-offset=0, repeat=no-repeat)\n"
             codes += "  background url('" + url + "') repeat (" + element.positionX + "px + x-offset) (" + -element.positionY + "px + y-offset) transparent\n"
-            codes += "  width " + element.width + "px\n"
-            codes += "  height " + element.height + "px\n"
+            codes += "  if sizes is true\n"
+            codes += "    width " + element.width + "px\n"
+            codes += "    height " + element.height + "px\n"
         })
     }
 
