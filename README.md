@@ -183,9 +183,9 @@ Feel free to post issues or pull request.
 You can run the projects tests with the `npm test` command.
 
 ## Release History
-* 2013-03-05    **v0.1.8**    Fix Bug replace all _ mixin name
-* 2013-03-05    **v0.1.7**    Features - optional parameter of sizes on mixings
-* 2013-03-05    **v0.1.6**    Improvements - add width and height of mixings
+* 2013-03-11    **v0.1.8**    Fix Bug replace all _ mixin of name
+* 2013-03-08    **v0.1.7**    Features - optional parameter of sizes on mixings
+* 2013-03-07    **v0.1.6**    Improvements - add width and height of mixings
 * 2013-03-05    **v0.1.5**    Fix bug syntax background and insert namespace in the url
 * 2013-03-05    **v0.1.4(deprecated)**    Fix bug remove Json
 * 2013-03-05    **v0.1.3(deprecated)**    Improvements remove json and code refactors
