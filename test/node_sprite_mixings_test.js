@@ -35,7 +35,6 @@ exports.node_sprite_mixings = {
         test.notEqual(globalStyl.indexOf('if'), -1, 'Should contain the `if` of mixing');
         test.notEqual(globalStyl.indexOf('repeat'), -1, 'Should contain the repeat of mixing');
         test.notEqual(globalStyl.indexOf('transparent'), -1, 'Should contain the transparent of mixing');
-        console.log('*********', globalStyl.indexOf('_') == -1, '*********')
         test.equal(globalStyl.indexOf('_'), -1, 'Should not contain underscore of mixing');
         test.done();
     },
