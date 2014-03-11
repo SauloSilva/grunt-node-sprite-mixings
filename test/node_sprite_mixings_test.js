@@ -6,7 +6,7 @@ var grunt = require('grunt'),
 
 exports.node_sprite_mixings = {
     global: function(test) {
-        test.expect(35);
+        test.expect(41);
         var pathStyl = './test/expected/global.styl',
             pathJson = './test/fixtures/',
             jsons = ['bar.json', 'foo.json', 'example.json'],
@@ -18,7 +18,7 @@ exports.node_sprite_mixings = {
             test.notEqual(globalStyl.indexOf("url('" + urlNamespace + jsonParsed.name + '-' + jsonParsed.shortsum + ".png')"), -1, 'Should contain the url of mixing');
 
             jsonParsed.images.forEach(function(json) {
-                test.notEqual(globalStyl.indexOf(json.name), -1, 'Should contain the name of mixing, the same json of the file');
+                test.notEqual(globalStyl.indexOf(json.name.replace(/\_/gi, '-')), -1, 'Should contain the name of mixing, the same json of the file');
                 test.notEqual(globalStyl.indexOf(json.positionY), -1, 'Should contain the positionY of mixing, the same json of the file');
                 test.notEqual(globalStyl.indexOf(json.positionX), -1, 'Should contain the positionX of mixing, the same json of the file');
                 test.notEqual(globalStyl.indexOf(json.width), -1, 'Should contain the width of mixing, the same json of the file');
@@ -35,6 +35,8 @@ exports.node_sprite_mixings = {
         test.notEqual(globalStyl.indexOf('if'), -1, 'Should contain the `if` of mixing');
         test.notEqual(globalStyl.indexOf('repeat'), -1, 'Should contain the repeat of mixing');
         test.notEqual(globalStyl.indexOf('transparent'), -1, 'Should contain the transparent of mixing');
+        console.log('*********', globalStyl.indexOf('_') == -1, '*********')
+        test.equal(globalStyl.indexOf('_'), -1, 'Should not contain underscore of mixing');
         test.done();
     },
 
