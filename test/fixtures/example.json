@@ -13,5 +13,11 @@
         "height": 20,
         "positionX": 0,
         "positionY": 442
+    }, {
+        "name": "bar_test_hover",
+        "width": 20,
+        "height": 20,
+        "positionX": 442,
+        "positionY": 542
     }]
 }
